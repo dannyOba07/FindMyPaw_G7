@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMyPaw</title>
+
+    <link rel="stylesheet" href="/css/login.css">
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <!-- Parte login -->
+        <div id="login">
+
+            <h1> Bienvenido a FindMyPaw !</h1>
+
+            <h2>Iniciar Sesión</h2>
+
+            <input type="email" id="correoLogin" placeholder="Ingresa tu Correo">
+            <input type="password" id="passwordLogin" placeholder="Ingresa tu Contraseña">
+            <button type="button" id="btnIniciar">Iniciar Sesión</button>
+            <p id="mensajeR"></p>
+
+            <p>
+                ¿No tienes cuenta?
+             <button type="button" id="btnRegistro">Registrarse</button>
+            </p>    
+
+        </div>
+
+
+        <!-- Parte de registro -->
+        <div id="registro">
+
+            <h2>Registro de Usuarios</h2>
+
+            <input type="text" id="nombre"  name="nombre" placeholder="Ingresa tu Nombre">
+            <input type="text" id="apellidoP" name="apellidoP" placeholder="Ingresa tu Apellido Paterno">
+            <input type="text" id="apellidoM" name="apellidoM" placeholder="Ingresa tu Apellido Materno">
+            <input type="email" id="correoRegistro" name="correoRegistro" placeholder="Ingresa tu Correo">
+            <input type="text" id="telefono" name="telefono" placeholder="Ingresa tu Teléfono">
+            <input type="text" id="direccion" name="direccion" placeholder="Ingresa tu Dirección">
+            <input type="password" id="passwordRegistro" name="passwordRegistro" placeholder="Ingresa tu Contraseña">
+
+        <!-- roles -->
+            <h3>Seleccione un Rol</h3>
+
+            <select id="rol">
+                <option>Usuario General</option>
+                <option>Rescatista/Refugio</option>
+
+            </select>
+
+            <br><br>
+
+            <button type="button" id="btnGuardar">Guardar</button>
+            <br><br>
+            <button type="button" id="btnVolver">Volver al inicio de sesion</button>
+            <p id="mensajeError"></p>
+
+        </div>
+    </div>
+
+    <script src="/js/login.js"></script>
+
+</body>
+ 
+</html>
