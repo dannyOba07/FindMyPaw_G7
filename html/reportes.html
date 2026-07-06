@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMyPaw - Reportes</title>
+    <link rel="stylesheet" href="../css/reportes.css">
+</head>
+<body>
+
+    <div class="contenedor-reportes">
+
+        <header>
+            <h1>Crear Reporte</h1>
+            <p>Reporta un perro perdido, encontrado o abandonado</p>
+        </header>
+
+        <form id="formReporte">
+
+            <label>Tipo de reporte</label>
+            <select id="tipoReporte">
+                <option value="">Seleccione una opción</option>
+                <option value="1">Perro perdido</option>
+                <option value="2">Perro encontrado</option>
+                <option value="3">Perro abandonado</option>
+            </select>
+
+            <label>Nombre del perro</label>
+            <input type="text" id="nombrePerro" placeholder="Si no lo conoce, puede dejarlo vacío">
+
+            <label>Raza</label>
+            <input type="text" id="raza" placeholder="Ejemplo: Labrador, Mestizo">
+
+            <label>Tamaño</label>
+            <select id="tamano">
+                <option value="">Seleccione una opción</option>
+                <option>Pequeño</option>
+                <option>Mediano</option>
+                <option>Grande</option>
+            </select>
+
+            <label>Color</label>
+            <input type="text" id="color" placeholder="Ejemplo: Negro, blanco, café">
+
+            <label>Sexo</label>
+            <select id="sexo">
+                <option value="">Seleccione una opción</option>
+                <option>Macho</option>
+                <option>Hembra</option>
+                <option>No se sabe</option>
+            </select>
+
+            <label>Estado de salud</label>
+            <select id="estadoSalud">
+                <option value="">Seleccione una opción</option>
+                <option>Bueno</option>
+                <option>Herido</option>
+                <option>Desnutrido</option>
+                <option>Necesita atención médica</option>
+                <option>No se sabe</option>
+            </select>
+
+            <label>Ubicación del avistamiento</label>
+            <input type="text" id="ubicacion" placeholder="Ejemplo: Heredia Centro">
+
+            <label>Descripción del caso</label>
+            <textarea id="descripcion" placeholder="Explique lo ocurrido"></textarea>
+
+            <label>Imagen del perro</label>
+            <input type="file" id="imagen" accept="image/*">
+
+            <div class="contenedor-imagen">
+                <img id="vistaPrevia" src="" alt="Vista previa del perro">
+                <button type="button" id="eliminarImagen">Eliminar foto</button>
+            </div>
+
+            <div class="mapa">
+                Simulación de mapa / ubicación del avistamiento
+            </div>
+
+            <button type="submit">Publicar Reporte</button>
+
+            <p id="mensajeReporte"></p>
+
+        </form>
+
+    </div>
+
+    <script src="../js/reportes.js"></script>
+</body>
+</html>
