@@ -1,61 +1,67 @@
-    let mensajeR = document.getElementById("mensajeR");
-    let mensajeError = document.getElementById("mensajeError");
-    let login = document.getElementById("login");
-    let registro = document.getElementById("registro");
+   $(function () {
+    const urlBase = "../index.php";
 
-    // Botones
-    let btnIniciar = document.getElementById("btnIniciar");
-    let btnRegistro = document.getElementById("btnRegistro");
-    let btnGuardar = document.getElementById("btnGuardar");
+    $("#formLogin").on("submit", function (event) {
+        event.preventDefault();
+        const correo = $("#correo");
+        const password = $("#password");
 
-    registro.style.display = "none";
-
-    // Iniciar sesión
-    btnIniciar.addEventListener("click", function () {
-
-        let correo = document.getElementById("correoLogin").value;
-        let password = document.getElementById("passwordLogin").value;
-
-        if (correo == "" || password == "") {
-
-            mensajeR.innerText = "Debe completar todos los campos";
-            mensajeR.style.color = "red";
-
-        } else {
-
-            mensajeR.innerText = "Inicio de sesión correcto";
-            mensajeR.style.color = "green";
+        if (correo.val() === "" || password.val() === "") {
+            alert("Debe completar todos los campos");
+            return;
         }
 
+        $.post(urlBase, {
+            correo: correo.val(),
+            password: password.val(),
+            option: "login"
+        }, function (data) {
+            data = JSON.parse(data);
+            if (data.response === "00") {
+                window.location = "catalogo.php";
+            } else {
+                alert(data.message);
+            }
+        });
     });
 
-    btnRegistro.addEventListener("click", function () {
-        login.style.display = "none";
-        registro.style.display = "block";
-        
-    }); 
+    $('#formRegister').on('submit', function (e) {
+        e.preventDefault();
 
-    // Registrar a un usuario
-    btnGuardar.addEventListener("click", function () {
+        const password = $('#regPassword').val();
+        const confirm = $('#regConfirm').val();
 
-        let nombre = document.getElementById("nombre").value;
-        let correo = document.getElementById("correoRegistro").value;
-        let password = document.getElementById("passwordRegistro").value;
-        let rol = document.getElementById("rol").value;
+        $('#registerError, #registerSuccess').addClass('d-none').text('');
 
-        if (nombre == "" || correo == "" || password == "" || rol == "") {
-            mensajeError.innerText = "Todos los campos deben ser llenados";
-            mensajeError.style.color = "red";
-        } else {
-            mensajeError.innerText = "El nuevo usuario ha sido registrado correctamente";
-            mensajeError.style.color = "green";
-
+        if (password !== confirm) {
+            $('#registerError').removeClass('d-none').text('Las contraseñas no coinciden');
+            return;
         }
 
+        $.post(urlBase, {
+            correo: $('#regCorreo').val(),
+            password: password,
+            confirm_password: confirm,
+            id_rol: $('#regRol').val(),
+            nombre: $('#regNombre').val(),
+            apellido_paterno: $('#regApellidoPaterno').val(),
+            apellido_materno: $('#regApellidoMaterno').val(),
+            telefono: $('#regTelefono').val(),
+            direccion: $('#regDireccion').val(),
+            option: "register"
+        }, function (res) {
+            if (res.response === '00') {
+                $('#registerSuccess').removeClass('d-none').text('Registro exitoso. Redirigiendo...');
+                setTimeout(() => window.location.href = 'login.php', 1500);
+            } else {
+                $('#registerError').removeClass('d-none').text(res.message);
+            }
+        }, 'json');
     });
 
-    // Volver al inicio de sesión
-    btnVolver.addEventListener("click", function () {
-        registro.style.display = "none";
-        login.style.display = "block";
+    $('#btnLogout').on('click', function () {
+        $.post(urlBase, { option: "logout" }, function () {
+            window.location.href = 'login.php';
+        });
     });
+});
