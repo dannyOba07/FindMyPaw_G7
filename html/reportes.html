@@ -15,7 +15,7 @@
             <p>Reporta un perro perdido, encontrado o abandonado</p>
         </header>
 
-        <form id="formReporte">
+        <form id="formReporte" enctype="multipart/form-data">
 
             <label>Tipo de reporte</label>
             <select id="tipoReporte">
@@ -30,6 +30,9 @@
 
             <label>Raza</label>
             <input type="text" id="raza" placeholder="Ejemplo: Labrador, Mestizo">
+
+            <label>Edad</label>
+            <input type="number" id="edad" placeholder="Edad aproximada del perro">
 
             <label>Tamaño</label>
             <select id="tamano">
@@ -86,6 +89,7 @@
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
     <script src="../js/reportes.js"></script>
 </body>
 </html>

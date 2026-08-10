@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +17,7 @@ body {
 }
 
 .contenedor-reportes {
-    width: 800px;
+    width: 1000px;
     max-width: 95%;
     background: rgba(255, 255, 255, .95);
     padding: 40px;
@@ -37,6 +38,8 @@ header p {
     color: #555;
     font-size: 18px;
 }
+
+/* FORMULARIO */
 
 form {
     display: flex;
@@ -85,6 +88,8 @@ button:hover {
     color: white;
 }
 
+/* IMAGEN DEL FORMULARIO */
+
 .contenedor-imagen {
     margin-top: 15px;
     text-align: center;
@@ -96,7 +101,7 @@ button:hover {
     height: 250px;
     object-fit: cover;
     border-radius: 15px;
-    border: 1px solid #ccc;
+    border: 2px solid #1d3557;
     margin: 15px auto;
 }
 
@@ -112,6 +117,8 @@ button:hover {
     background: #b52b27;
 }
 
+/* MAPA */
+
 .mapa {
     margin-top: 20px;
     padding: 40px;
@@ -122,8 +129,126 @@ button:hover {
     color: #555;
 }
 
+/* MENSAJE */
+
 #mensajeReporte {
     text-align: center;
     margin-top: 20px;
     font-weight: bold;
 }
+
+/* LISTA DE REPORTES */
+
+.grid-reportes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* TARJETA */
+
+.card-reporte {
+    background: white;
+    border: 2px solid #71a7db;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,.15);
+    text-align: center;
+}
+
+/* FOTO DEL PERRO */
+
+.card-reporte img {
+    width: 200px;
+    height: 160px;
+    object-fit: cover;
+    border: 3px solid #1d3557;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* INFORMACION */
+
+.info-reporte {
+    padding: 15px 5px 5px 5px;
+    text-align: center;
+}
+
+.info-reporte h2 {
+    color: #1d3557;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.info-reporte p {
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* BOTON */
+
+.btn-ver-reporte {
+    display: inline-block;
+    text-decoration: none;
+    background: #71a7db;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.btn-ver-reporte:hover {
+    background: #4d8ecb;
+    color: white;
+}
+
+/* TABLET */
+
+@media screen and (max-width: 900px) {
+
+    .grid-reportes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contenedor-reportes {
+        padding: 30px;
+    }
+}
+
+/* TELEFONO */
+
+@media screen and (max-width: 600px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+    .contenedor-reportes {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .grid-reportes {
+        grid-template-columns: 1fr;
+    }
+
+    .card-reporte img {
+        width: 200px;
+        height: 160px;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    header p {
+        font-size: 16px;
+    }
+}
+
+
