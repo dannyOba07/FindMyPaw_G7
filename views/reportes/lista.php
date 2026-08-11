@@ -7,7 +7,7 @@
 
     <title>Reportes - FindMyPaw</title>
 
-    <link rel="stylesheet" href="css/reportes.css">
+    <link rel="stylesheet" href="css/lista_reportes.css">
 </head>
 
 <body>

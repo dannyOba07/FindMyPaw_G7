@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url("../img/fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.contenedor-reportes {
+    width: 1000px;
+    max-width: 95%;
+    background: rgba(255, 255, 255, .95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,.35);
+    margin: 40px auto;
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #1d3557;
+}
+
+header p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555;
+    font-size: 18px;
+}
+
+.grid-reportes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card-reporte {
+    background-color: white;
+    border: 2px solid #71a7db;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0,0,0,.15);
+}
+
+.card-reporte img {
+    width: 200px;
+    height: 160px;
+    object-fit: cover;
+    border: 3px solid #1d3557;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto;
+}
+
+.info-reporte {
+    text-align: center;
+    padding: 15px 5px 5px 5px;
+}
+
+.info-reporte h2 {
+    color: #1d3557;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.info-reporte p {
+    color: #555;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.btn-ver-reporte {
+    display: inline-block;
+    background-color: #71a7db;
+    color: black;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.btn-ver-reporte:hover {
+    background-color: #4d8ecb;
+    color: white;
+}
+
+@media screen and (max-width: 900px) {
+
+    .grid-reportes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .grid-reportes {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor-reportes {
+        padding: 20px;
+    }
+}
