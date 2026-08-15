@@ -1,5 +1,5 @@
 $(function () {
-    const urlBase = "../index.php";
+    const urlBase = "./index.php";
 
     // ── Login ────────────────────────────────────────────
     $('#formLogin').on('submit', function (e) {
@@ -20,7 +20,8 @@ $(function () {
             option: 'login'
         }, function (res) {
             if (res.response === '00') {
-                window.location = 'catalogo.php';
+                // Redirige usando el enrutador de index.php
+                window.location = 'index.php?page=catalogo';
             } else {
                 $('#loginError').removeClass('d-none').text(res.message);
             }
@@ -40,12 +41,13 @@ $(function () {
             telefono: $('#regTelefono').val(),
             direccion: $('#regDireccion').val(),
             password: $('#regPassword').val(),
+            confirm_password: $('#regConfirmPassword').val(), // Se agrega confirmación de contraseña requerida por el backend
             id_rol: $('#regRol').val(),
             option: 'register'
         }, function (res) {
             if (res.response === '00') {
                 $('#registerSuccess').removeClass('d-none').text('Registro exitoso. Redirigiendo...');
-                setTimeout(() => window.location.href = 'login.php', 1500);
+                setTimeout(() => window.location.href = 'index.php?page=login', 1500);
             } else {
                 $('#registerError').removeClass('d-none').text(res.message);
             }
@@ -55,7 +57,7 @@ $(function () {
     // ── Logout ───────────────────────────────────────────
     $('#btnLogout').on('click', function () {
         $.post(urlBase, { option: 'logout' }, function () {
-            window.location.href = 'login.php';
+            window.location.href = 'index.php?page=login';
         });
     });
 });

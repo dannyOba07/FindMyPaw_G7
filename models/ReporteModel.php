@@ -21,7 +21,7 @@ class ReporteModel
         string $tamano,
         string $color,
         string $sexo,
-        string $estadoSalud,
+        string $estadoSalud, // Se mantiene la firma por compatibilidad con el controlador
         string $descripcion
     ): int {
 
@@ -36,7 +36,6 @@ class ReporteModel
                     TAMANO,
                     COLOR,
                     SEXO,
-                    ESTADO_SALUD,
                     DESCRIPCION
                 )
                 VALUES
@@ -50,7 +49,6 @@ class ReporteModel
                     :tamano,
                     :color,
                     :sexo,
-                    :estado_salud,
                     :descripcion
                 )";
 
@@ -65,7 +63,6 @@ class ReporteModel
             ":tamano" => $tamano,
             ":color" => $color,
             ":sexo" => $sexo,
-            ":estado_salud" => $estadoSalud,
             ":descripcion" => $descripcion
         ]);
 
@@ -115,34 +112,34 @@ class ReporteModel
     }
 
     public function guardarImagen(
-    int $idPerro,
-    string $rutaImagen,
-    string $descripcion
-): bool {
+        int $idPerro,
+        string $rutaImagen,
+        string $descripcion
+    ): bool {
 
-    $sql = "INSERT INTO IMAGENES_PERRO
-            (
-                ID_PERRO,
-                ID_ESTADO,
-                RUTA_IMAGEN,
-                DESCRIPCION
-            )
-            VALUES
-            (
-                :id_perro,
-                1,
-                :ruta_imagen,
-                :descripcion
-            )";
+        $sql = "INSERT INTO IMAGENES_PERRO
+                (
+                    ID_PERRO,
+                    ID_ESTADO,
+                    RUTA_IMAGEN,
+                    DESCRIPCION
+                )
+                VALUES
+                (
+                    :id_perro,
+                    1,
+                    :ruta_imagen,
+                    :descripcion
+                )";
 
-    $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
 
-    return $stmt->execute([
-        ":id_perro" => $idPerro,
-        ":ruta_imagen" => $rutaImagen,
-        ":descripcion" => $descripcion
-    ]);
-}
+        return $stmt->execute([
+            ":id_perro" => $idPerro,
+            ":ruta_imagen" => $rutaImagen,
+            ":descripcion" => $descripcion
+        ]);
+    }
 
     public function obtenerReportes(): array
     {
@@ -157,7 +154,6 @@ class ReporteModel
                     PERROS.TAMANO,
                     PERROS.COLOR,
                     PERROS.SEXO,
-                    PERROS.ESTADO_SALUD,
                     TIPO_REPORTES.NOMBRE_TIPO_REPORTE,
                     IMAGENES_PERRO.RUTA_IMAGEN
                 FROM REPORTES
@@ -172,6 +168,37 @@ class ReporteModel
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerPorId(int $id)
+    {
+        $sql = "SELECT
+                    REPORTES.ID_REPORTE,
+                    REPORTES.UBICACION,
+                    REPORTES.FECHA_REPORTE,
+                    REPORTES.DESCRIPCION,
+                    PERROS.NOMBRE_PERRO,
+                    PERROS.RAZA,
+                    PERROS.EDAD,
+                    PERROS.TAMANO,
+                    PERROS.COLOR,
+                    PERROS.SEXO,
+                    TIPO_REPORTES.NOMBRE_TIPO_REPORTE,
+                    IMAGENES_PERRO.RUTA_IMAGEN
+                FROM REPORTES
+                INNER JOIN PERROS
+                    ON REPORTES.ID_PERRO = PERROS.ID_PERRO
+                INNER JOIN TIPO_REPORTES
+                    ON REPORTES.ID_TIPO_REPORTE = TIPO_REPORTES.ID_TIPO_REPORTE
+                LEFT JOIN IMAGENES_PERRO
+                    ON PERROS.ID_PERRO = IMAGENES_PERRO.ID_PERRO
+                WHERE REPORTES.ID_REPORTE = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

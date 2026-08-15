@@ -1,124 +1,99 @@
-let formulario = document.getElementById("formReporte");
-let imagen = document.getElementById("imagen");
-let vistaPrevia = document.getElementById("vistaPrevia");
-let eliminarImagen = document.getElementById("eliminarImagen");
-let mensajeReporte = document.getElementById("mensajeReporte");
+document.addEventListener("DOMContentLoaded", () => {
+    const formulario = document.getElementById("formReporte");
+    const imagenInput = document.getElementById("imagen");
+    const vistaPrevia = document.getElementById("vistaPrevia");
+    const btnEliminarImagen = document.getElementById("eliminarImagen");
+    const mensajeReporte = document.getElementById("mensajeReporte");
 
-imagen.addEventListener("change", function () {
+    // Si el formulario no existe en la vista actual (ej. lista.php), interrumpe la ejecución sin lanzar error
+    if (!formulario) return;
 
-    let archivo = imagen.files[0];
-
-    if (archivo) {
-
-        let lector = new FileReader();
-
-        lector.onload = function (event) {
-            vistaPrevia.src = event.target.result;
-            vistaPrevia.style.display = "block";
-            eliminarImagen.style.display = "block";
-        };
-
-        lector.readAsDataURL(archivo);
-    }
-});
-
-
-eliminarImagen.addEventListener("click", function () {
-
-    imagen.value = "";
-    vistaPrevia.src = "";
-    vistaPrevia.style.display = "none";
-    eliminarImagen.style.display = "none";
-
-});
-
-
-formulario.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-    let tipoReporte = document.getElementById("tipoReporte").value;
-    let nombrePerro = document.getElementById("nombrePerro").value;
-    let raza = document.getElementById("raza").value;
-    let edad = document.getElementById("edad").value;
-    let tamano = document.getElementById("tamano").value;
-    let color = document.getElementById("color").value;
-    let sexo = document.getElementById("sexo").value;
-    let estadoSalud = document.getElementById("estadoSalud").value;
-    let ubicacion = document.getElementById("ubicacion").value;
-    let descripcion = document.getElementById("descripcion").value;
-
-    if (
-        tipoReporte == "" ||
-        edad == "" ||
-        tamano == "" ||
-        color == "" ||
-        sexo == "" ||
-        estadoSalud == "" ||
-        ubicacion == "" ||
-        descripcion == ""
-    ) {
-
-        mensajeReporte.innerText =
-            "Debe completar todos los campos obligatorios";
-
-        mensajeReporte.style.color = "red";
-
-    } else {
-
-        let datos = new FormData();
-
-        datos.append("tipoReporte", tipoReporte);
-        datos.append("nombrePerro", nombrePerro);
-        datos.append("raza", raza);
-        datos.append("edad", edad);
-        datos.append("tamano", tamano);
-        datos.append("color", color);
-        datos.append("sexo", sexo);
-        datos.append("estadoSalud", estadoSalud);
-        datos.append("ubicacion", ubicacion);
-        datos.append("descripcion", descripcion);
-
-        if (imagen.files[0]) {
-            datos.append("imagen", imagen.files[0]);
+    // Función auxiliar para reiniciar el control de la imagen
+    const resetearVistaPrevia = () => {
+        if (imagenInput) imagenInput.value = "";
+        if (vistaPrevia) {
+            vistaPrevia.src = "";
+            vistaPrevia.style.display = "none";
         }
+        if (btnEliminarImagen) btnEliminarImagen.style.display = "none";
+    };
 
-        fetch("../guardar_reporte.php", {
-            method: "POST",
-            body: datos
-        })
-        .then(response => response.text())
-        .then(respuesta => {
+    // Previsualización de la imagen cargada
+    if (imagenInput) {
+        imagenInput.addEventListener("change", () => {
+            const [archivo] = imagenInput.files;
 
-            mensajeReporte.innerText = respuesta;
-
-            if (respuesta == "Reporte registrado correctamente") {
-
-                mensajeReporte.style.color = "green";
-
-                formulario.reset();
-
-                vistaPrevia.src = "";
-                vistaPrevia.style.display = "none";
-
-                eliminarImagen.style.display = "none";
-
-            } else {
-
-                mensajeReporte.style.color = "red";
+            if (archivo && vistaPrevia && btnEliminarImagen) {
+                const lector = new FileReader();
+                lector.onload = (e) => {
+                    vistaPrevia.src = e.target.result;
+                    vistaPrevia.style.display = "block";
+                    btnEliminarImagen.style.display = "block";
+                };
+                lector.readAsDataURL(archivo);
             }
-
-        })
-        .catch(error => {
-
-            console.log(error);
-
-            mensajeReporte.innerText =
-                "Error al registrar el reporte";
-
-            mensajeReporte.style.color = "red";
-
         });
     }
 
+    // Evento para limpiar la selección de imagen
+    if (btnEliminarImagen) {
+        btnEliminarImagen.addEventListener("click", resetearVistaPrevia);
+    }
+
+    // Procesamiento y envío del formulario
+    formulario.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const camposRequeridos = [
+            "tipoReporte", "edad", "tamano", 
+            "color", "sexo", "estadoSalud", 
+            "ubicacion", "descripcion"
+        ];
+
+        // Validación de campos vacíos o con solo espacios
+        const estaIncompleto = camposRequeridos.some(id => {
+            const valor = document.getElementById(id)?.value ?? "";
+            return valor.trim() === "";
+        });
+
+        if (estaIncompleto) {
+            if (mensajeReporte) {
+                mensajeReporte.innerText = "Debe completar todos los campos obligatorios.";
+                mensajeReporte.style.color = "red";
+            }
+            return;
+        }
+
+        const datos = new FormData(formulario);
+
+        try {
+            const respuesta = await fetch("./guardar_reporte.php", {
+                method: "POST",
+                body: datos
+            });
+
+            if (!respuesta.ok) throw new Error(`HTTP error! status: ${respuesta.status}`);
+
+            const resultado = await respuesta.text();
+            
+            if (mensajeReporte) {
+                mensajeReporte.innerText = resultado;
+
+                if (resultado.trim() === "Reporte registrado correctamente") {
+                    mensajeReporte.style.color = "green";
+                    formulario.reset();
+                    resetearVistaPrevia();
+                } else {
+                    mensajeReporte.style.color = "red";
+                }
+            }
+
+        } catch (error) {
+            console.error("Error en la solicitud:", error);
+            if (mensajeReporte) {
+                mensajeReporte.innerText = "Error al registrar el reporte.";
+                mensajeReporte.style.color = "red";
+            }
+        }
+    });
 });

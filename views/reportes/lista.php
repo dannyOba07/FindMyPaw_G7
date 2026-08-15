@@ -7,10 +7,14 @@
 
     <title>Reportes - FindMyPaw</title>
 
-    <link rel="stylesheet" href="css/lista_reportes.css">
+    <link rel="stylesheet" href="./css/lista_reportes.css?v=<?php echo time(); ?>">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
+
+    <!-- Menú de navegación común -->
+    <?php include __DIR__ . '/../navbar.php'; ?>
 
     <div class="contenedor-reportes">
 
@@ -24,9 +28,9 @@
 
         <section class="grid-reportes">
 
-            <?php if (count($reportes) == 0) { ?>
+            <?php if (empty($reportes)) { ?>
 
-                <p>No hay reportes registrados.</p>
+                <p style="text-align:center; width:100%;">No hay reportes registrados.</p>
 
             <?php } else { ?>
 
@@ -34,16 +38,16 @@
 
                     <div class="card-reporte">
 
-                        <?php if ($reporte["RUTA_IMAGEN"] != "") { ?>
+                        <?php if (!empty($reporte["RUTA_IMAGEN"])) { ?>
 
                             <img
-                                src="<?php echo $reporte["RUTA_IMAGEN"]; ?>"
-                                alt="Foto de <?php echo $reporte["NOMBRE_PERRO"]; ?>">
+                                src="./img/reportes/<?php echo htmlspecialchars(basename($reporte["RUTA_IMAGEN"])); ?>"
+                                alt="Foto de <?php echo htmlspecialchars($reporte["NOMBRE_PERRO"]); ?>">
 
                         <?php } else { ?>
 
                             <img
-                                src="img/fondo.png"
+                                src="./img/fondo.png"
                                 alt="Sin fotografía">
 
                         <?php } ?>
@@ -52,8 +56,8 @@
 
                             <h2>
                                 <?php
-                                if ($reporte["NOMBRE_PERRO"] != "") {
-                                    echo $reporte["NOMBRE_PERRO"];
+                                if (!empty($reporte["NOMBRE_PERRO"])) {
+                                    echo htmlspecialchars($reporte["NOMBRE_PERRO"]);
                                 } else {
                                     echo "Sin nombre";
                                 }
@@ -61,12 +65,12 @@
                             </h2>
 
                             <p>
-                                <?php echo $reporte["NOMBRE_TIPO_REPORTE"]; ?>
+                                <?php echo htmlspecialchars($reporte["NOMBRE_TIPO_REPORTE"]); ?>
                             </p>
 
                             <a
                                 class="btn-ver-reporte"
-                                href="ver_reporte.php?id=<?php echo $reporte["ID_REPORTE"]; ?>">
+                                href="index.php?page=ver_reporte&id=<?php echo $reporte["ID_REPORTE"]; ?>">
 
                                 Ver reporte completo
 
@@ -84,6 +88,8 @@
 
     </div>
 
+    <!-- Scripts JS -->
+    <script src="./js/reportes.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

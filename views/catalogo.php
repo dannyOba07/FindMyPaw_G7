@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindMyPaw - Catálogo</title>
-    <link rel="stylesheet" href="../css/catalogo.css">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="./css/catalogo.css?v=<?php echo time(); ?>">
+    <!-- jQuery y Bootstrap CSS (opcional pero recomendado para el menú) -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+
+    <!-- Menú de navegación común -->
+    <?php include __DIR__ . '/navbar.php'; ?>
 
     <div class="contenedor-catalogo">
         
@@ -16,7 +21,8 @@
             <p>Encuentra a tu nuevo mejor amigo</p>
         </header>
 
-        <form method="GET" action="../catalogo.php" id="filtros">
+        <form method="GET" action="index.php" id="filtros">
+            <input type="hidden" name="page" value="catalogo">
             <h2>Filtrar Búsqueda</h2>
             <select name="edad" id="filtroEdad">
                 <option value="">Todas las edades</option>
@@ -43,7 +49,7 @@
             <?php else: ?>
                 <?php foreach ($perros as $perro): ?>
                     <div class="card-perro">
-                        <img src="../<?php echo !empty($perro['RUTA_IMAGEN']) ? $perro['RUTA_IMAGEN'] : 'img/fondo.png'; ?>" alt="Foto de <?php echo $perro['NOMBRE_PERRO']; ?>">
+                        <img src="./<?php echo !empty($perro['RUTA_IMAGEN']) ? $perro['RUTA_IMAGEN'] : 'img/fondo.png'; ?>" alt="Foto de <?php echo $perro['NOMBRE_PERRO']; ?>">
                         <div class="info-perro">
                             <h3><?php echo htmlspecialchars($perro['NOMBRE_PERRO'] ?: 'Sin nombre'); ?></h3>
                             <p><strong>Raza:</strong> <?php echo htmlspecialchars($perro['RAZA']); ?></p>
@@ -58,6 +64,8 @@
 
     </div>
 
-    <script src="../js/catalogo.js"></script>
+    <!-- Scripts JS -->
+    <script src="./js/auth.js?v=<?php echo time(); ?>"></script>
+    <script src="./js/catalogo.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

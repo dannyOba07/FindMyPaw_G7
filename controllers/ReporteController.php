@@ -52,7 +52,7 @@ class ReporteController
             $idEstadoPerro,
             $nombrePerro,
             $raza,
-            $edad,
+            (int)$edad,
             $tamano,
             $color,
             $sexo,
@@ -62,28 +62,28 @@ class ReporteController
 
         if (isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != "") {
 
-    $nombreImagen = $_FILES["imagen"]["name"];
+            $nombreImagen = $_FILES["imagen"]["name"];
 
-    $rutaGuardar = __DIR__ . "/../img/reportes/" . $nombreImagen;
+            $rutaGuardar = __DIR__ . "/../img/reportes/" . $nombreImagen;
 
-    move_uploaded_file(
-        $_FILES["imagen"]["tmp_name"],
-        $rutaGuardar
-    );
+            move_uploaded_file(
+                $_FILES["imagen"]["tmp_name"],
+                $rutaGuardar
+            );
 
-    $rutaBaseDatos = "img/reportes/" . $nombreImagen;
+            $rutaBaseDatos = "img/reportes/" . $nombreImagen;
 
-    $this->model->guardarImagen(
-        $idPerro,
-        $rutaBaseDatos,
-        "Fotografía de " . $nombrePerro
-    );
-}
+            $this->model->guardarImagen(
+                $idPerro,
+                $rutaBaseDatos,
+                "Fotografía de " . $nombrePerro
+            );
+        }
 
         $this->model->guardarReporte(
             $idUsuario,
             $idPerro,
-            $tipoReporte,
+            (int)$tipoReporte,
             1,
             $ubicacion,
             $descripcion
@@ -94,8 +94,19 @@ class ReporteController
 
     public function listar(): void
     {
-    $reportes = $this->model->obtenerReportes();
+        $reportes = $this->model->obtenerReportes();
 
-    require __DIR__ . '/../views/reportes/lista.php';
+        require __DIR__ . '/../views/reportes/lista.php';
+    }
+
+    public function verDetalle($id): void
+    {
+        $id = (int)$id;
+
+        // 1. Obtener los datos del reporte por su ID desde el modelo
+        $reporte = $this->model->obtenerPorId($id);
+
+        // 2. Cargar la vista de detalle
+        require_once __DIR__ . '/../views/reportes/detalle.php';
     }
 }

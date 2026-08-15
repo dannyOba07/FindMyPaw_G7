@@ -1,67 +1,69 @@
-   $(function () {
-    const urlBase = "../index.php";
+$(function () {
+    // Apunta al archivo actual dinámicamente evitando problemas de subcarpetas
+    const urlBase = './index.php'; 
 
-    $("#formLogin").on("submit", function (event) {
-        event.preventDefault();
-        const correo = $("#correo");
-        const password = $("#password");
+    // ── Login ────────────────────────────────────────────
+    $('#formLogin').on('submit', function (e) {
+        e.preventDefault();
+        $('#loginError').addClass('d-none').text('');
 
-        if (correo.val() === "" || password.val() === "") {
-            alert("Debe completar todos los campos");
+        const correo = $('#correoLogin').val().trim();
+        const password = $('#passwordLogin').val().trim();
+
+        if (correo === '' || password === '') {
+            $('#loginError').removeClass('d-none').text('Debe completar todos los campos');
             return;
         }
 
         $.post(urlBase, {
-            correo: correo.val(),
-            password: password.val(),
-            option: "login"
-        }, function (data) {
-            data = JSON.parse(data);
-            if (data.response === "00") {
-                window.location = "catalogo.php";
+            correo: correo,
+            password: password,
+            option: 'login'
+        }, function (res) {
+            if (res.response === '00') {
+                window.location.href = 'index.php?page=catalogo';
             } else {
-                alert(data.message);
+                $('#loginError').removeClass('d-none').text(res.message || 'Credenciales incorrectas');
             }
+        }, 'json').fail(function(xhr, status, error) {
+            console.error("Error servidor:", xhr.responseText);
+            $('#loginError').removeClass('d-none').text('Error de conexión con el servidor.');
         });
     });
 
+    // ── Registro ─────────────────────────────────────────
     $('#formRegister').on('submit', function (e) {
         e.preventDefault();
-
-        const password = $('#regPassword').val();
-        const confirm = $('#regConfirm').val();
-
         $('#registerError, #registerSuccess').addClass('d-none').text('');
 
-        if (password !== confirm) {
-            $('#registerError').removeClass('d-none').text('Las contraseñas no coinciden');
-            return;
-        }
-
         $.post(urlBase, {
-            correo: $('#regCorreo').val(),
-            password: password,
-            confirm_password: confirm,
+            nombre: $('#regNombre').val().trim(),
+            apellido_paterno: $('#regApellidoPaterno').val().trim(),
+            apellido_materno: $('#regApellidoMaterno').val().trim(),
+            correo: $('#regCorreo').val().trim(),
+            telefono: $('#regTelefono').val().trim(),
+            direccion: $('#regDireccion').val().trim(),
+            password: $('#regPassword').val().trim(),
+            confirm_password: $('#regConfirmPassword').val().trim(),
             id_rol: $('#regRol').val(),
-            nombre: $('#regNombre').val(),
-            apellido_paterno: $('#regApellidoPaterno').val(),
-            apellido_materno: $('#regApellidoMaterno').val(),
-            telefono: $('#regTelefono').val(),
-            direccion: $('#regDireccion').val(),
-            option: "register"
+            option: 'register'
         }, function (res) {
             if (res.response === '00') {
                 $('#registerSuccess').removeClass('d-none').text('Registro exitoso. Redirigiendo...');
-                setTimeout(() => window.location.href = 'login.php', 1500);
+                setTimeout(() => window.location.href = 'index.php?page=login', 1500);
             } else {
-                $('#registerError').removeClass('d-none').text(res.message);
+                $('#registerError').removeClass('d-none').text(res.message || 'Error en el registro');
             }
-        }, 'json');
+        }, 'json').fail(function(xhr) {
+            console.error("Error registro:", xhr.responseText);
+            $('#registerError').removeClass('d-none').text('Error al procesar el registro.');
+        });
     });
 
+    // ── Logout ───────────────────────────────────────────
     $('#btnLogout').on('click', function () {
-        $.post(urlBase, { option: "logout" }, function () {
-            window.location.href = 'login.php';
+        $.post(urlBase, { option: 'logout' }, function () {
+            window.location.href = 'index.php?page=login';
         });
     });
 });

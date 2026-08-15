@@ -1,59 +1,83 @@
 <?php
 session_start();
-require './app/controllers/userController.php';
+// Ajustamos el nombre al archivo de tu controlador (normalmente en singular o plural según la estructura)
+require_once __DIR__ . '/controllers/userControllers.php';
 
 $page = $_GET['page'] ?? 'login';
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-    if (($_GET['option'] ?? "") == "getProfile") {
-        $auth = new userController();
-        $auth->getProfile();
-        exit;
-    }
+// Procesamiento de peticiones GET / API
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_GET['option'] ?? '') === 'getProfile') {
+    $auth = new userController();
+    $auth->profile();
+    exit;
 }
 
+// Procesamiento de peticiones POST (AJAX)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $auth = new userController();
+    $option = $_POST['option'] ?? '';
 
-    if ($_POST['option'] == "login") {
-        $auth = new userController();
-        $auth->login();
-        exit;
-    }
-
-    if ($_POST['option'] == "register") {
-        $auth = new userController();
-        $auth->register();
-        exit;
-    }
-
-    if ($_POST['option'] == "updateProfile") {
-        $auth = new userController();
-        $auth->updateProfile();
-        exit;
-    }
-
-    if ($_POST['option'] == "logout") {
-        $auth = new userController();
-        $auth->logout();
-        exit;
+    switch ($option) {
+        case 'login':
+            $auth->login();
+            exit;
+        case 'register':
+            $auth->register();
+            exit;
+        case 'updateProfile':
+            $auth->updateProfile();
+            exit;
+        case 'logout':
+            $auth->logout();
+            exit;
     }
 }
 
+// Enrutamiento de vistas principales
 switch ($page) {
-
-    case "showRegister":
-        $auth = new userController();
-        $auth->showRegister();
+    case 'catalogo':
+        require_once __DIR__ . '/controllers/AdopcionController.php';
+        $controller = new AdopcionController();
+        $controller->listarCatalogo();
         break;
 
-    case "profile":
-        $auth = new userController();
-        $auth->showProfile();
+    case 'reportes':
+        require_once __DIR__ . '/controllers/ReporteController.php';
+        $controller = new ReporteController();
+        $controller->listar();
         break;
 
+    case 'ver_reporte':
+        require_once __DIR__ . '/controllers/ReporteController.php';
+        $controller = new ReporteController();
+        // Llama al método encargado de mostrar el detalle pasando el ID
+        if (method_exists($controller, 'verDetalle')) {
+            $controller->verDetalle($_GET['id'] ?? 0);
+        } else {
+            $controller->listar(); // Respaldo si no existe el método
+        }
+        break;
+
+    case 'mis_solicitudes':
+        require_once __DIR__ . '/controllers/AdopcionController.php';
+        $controller = new AdopcionController();
+        $controller->misSolicitudes();
+        break;
+
+    case 'showRegister':
+        require_once __DIR__ . '/views/register.php';
+        break;
+
+    case 'profile':
+        if (!isset($_SESSION['id'])) {
+            header('Location: index.php?page=login');
+            exit;
+        }
+        require_once __DIR__ . '/views/profile.php';
+        break;
+
+    case 'login':
     default:
-        $auth = new userController();
-        $auth->showLogin();
+        require_once __DIR__ . '/views/login.php';
         break;
 }

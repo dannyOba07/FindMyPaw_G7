@@ -1,39 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FindMyPaw</title>
-    <link rel="stylesheet" href="../css/login.css">
-
+    <title>FindMyPaw - Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
-
 <body>
 
-    <div class="contenedor">
+    <div class="login-container">
+        <h1>Bienvenido a FindMyPaw !</h1>
+        <h2>Iniciar Sesión</h2>
 
-        <div id="login">
+        <!-- Mensaje de error de jQuery -->
+        <div id="loginError" class="d-none" style="color: red; margin-bottom: 10px;"></div>
 
-            <h1> Bienvenido a FindMyPaw !</h1>
+        <!-- El formulario DEBE tener id="formLogin" -->
+        <form id="formLogin">
+            <input type="email" id="correoLogin" name="correo" placeholder="Ingresa tu Correo" required>
+            <input type="password" id="passwordLogin" name="password" placeholder="Ingresa tu Contraseña" required>
+            
+            <button type="submit" class="btn-login">Iniciar Sesión</button>
+        </form>
 
-            <h2>Iniciar Sesión</h2>
+        <p>¿No tienes cuenta?</p>
+        <a href="index.php?page=showRegister" class="btn-register">Registrarse</a>
+    </div>
 
-            <input type="email" id="correoLogin" placeholder="Ingresa tu Correo">
-            <input type="password" id="passwordLogin" placeholder="Ingresa tu Contraseña">
-            <button type="button" id="btnIniciar">Iniciar Sesión</button>
-            <p id="mensajeR"></p>
-
-            <p>
-                ¿No tienes cuenta?
-             <button type="button" id="btnRegistro">Registrarse</button>
-            </p>    
-
-        </div>
-
-
-    <script src="../js/login.js"></script>
-
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/auth.js"></script>
 </body>
- 
 </html>
