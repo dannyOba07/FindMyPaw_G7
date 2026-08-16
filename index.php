@@ -64,6 +64,12 @@ switch ($page) {
         $controller->misSolicitudes();
         break;
 
+    case 'panel_refugio':
+        require_once __DIR__ . '/controllers/SolicitudController.php';
+        $controller = new SolicitudController();
+        $controller->panel();
+        break;
+
     case 'showRegister':
         require_once __DIR__ . '/views/register.php';
         break;
