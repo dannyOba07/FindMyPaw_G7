@@ -1,0 +1,97 @@
+/* Estilos generales del formulario basados en tu diseño */
+.form-container {
+    width: 800px;
+    max-width: 95%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.35);
+    margin: 40px auto;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1d3557;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1d3557;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #71a7db;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1d3557;
+}
+
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #71a7db;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-guardar {
+    background-color: #71a7db;
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-guardar:hover {
+    background-color: #4d8ecb;
+    color: #fff;
+}
+
+.btn-volver {
+    display: inline-block;
+    background-color: #e2e8f0;
+    color: #333;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-volver:hover {
+    background-color: #cbd5e1;
+}

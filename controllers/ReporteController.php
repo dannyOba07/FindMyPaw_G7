@@ -89,7 +89,8 @@ class ReporteController
             $descripcion
         );
 
-        echo "Reporte registrado correctamente";
+        header('Location: index.php?page=reportes');
+    exit();
     }
 
     public function listar(): void
@@ -108,5 +109,16 @@ class ReporteController
 
         
         require_once __DIR__ . '/../views/reportes/detalle.php';
+    }
+
+    public function mostrarFormulario(): void
+    {
+        $rutaVista = __DIR__ . '/../views/reportes/registrar_reporte.php';
+    
+    if (file_exists($rutaVista)) {
+        require_once $rutaVista;
+    } else {
+        die("Error: No se encontró el archivo de vista en: " . $rutaVista);
+    }
     }
 }

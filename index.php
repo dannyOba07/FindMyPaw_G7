@@ -46,6 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller = new SolicitudController();
             $controller->actualizar();
             exit;
+        case 'guardarReporte':
+    require_once __DIR__ . '/controllers/ReporteController.php';
+    $controller = new ReporteController();
+    $controller->guardar();
+    exit;
     }
 }
 
@@ -93,9 +98,17 @@ switch ($page) {
     case 'profile':
         include __DIR__ . '/views/profile.php';
         break;
+    
+        case 'form_registrar_reporte':
+    require_once __DIR__ . '/controllers/ReporteController.php';
+    $controller = new ReporteController();
+    $controller->mostrarFormulario();
+    break;
 
     case 'login':
     default:
         require_once __DIR__ . '/views/login.php';
         break;
+    
+ 
 }

@@ -25,6 +25,11 @@
                 Conoce los perros perdidos, encontrados o abandonados
             </p>
         </header>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="index.php?page=form_registrar_reporte" style="background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                + Registrar Nuevo Reporte
+            </a>
+        </div>
 
         <section class="grid-reportes">
 
