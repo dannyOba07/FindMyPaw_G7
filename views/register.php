@@ -5,9 +5,7 @@
   <title>FindMyPaw - Registro</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="../js/auth.js"></script>
-
-
+  <script src="/proyecto/FindMyPaw_G7/js/auth.js"></script>
 </head>
 <body class="container mt-5"> 
 
@@ -16,7 +14,7 @@
   <div class="alert alert-danger d-none" id="registerError"></div>
   <div class="alert alert-success d-none" id="registerSuccess"></div>
 
-  <form id="formRegister">
+  <form id="formRegister" action="index.php" method="POST">
     <input
       class="form-control mb-2"
       name="nombre"
@@ -61,6 +59,14 @@
       id="regPassword"
       placeholder="Contraseña">
 
+    <!-- Campo añadido para la confirmación de contraseña -->
+    <input
+      type="password"
+      class="form-control mb-2"
+      name="confirm_password"
+      id="regConfirmPassword"
+      placeholder="Confirmar contraseña">
+
     <select class="form-select mb-3" id="regRol" name="id_rol">
       <option value="1">Usuario General</option>
       <option value="2">Rescatista/Refugio</option>
@@ -69,7 +75,7 @@
     <button type="submit" class="btn btn-success">
       Registrarse
     </button>
-    <a href="login.php" class="btn btn-secondary ms-2">Volver al Login</a>
+    <a href="index.php?page=login" class="btn btn-secondary ms-2">Volver al Login</a>
   </form>
 
 </body>

@@ -11,20 +11,26 @@ class SolicitudController
     }
 
     public function panel(): void
-    {
-        if (!isset($_SESSION['id'])) {
-            header('Location: index.php?page=login');
-            exit;
-        }
+        {
+            if (!isset($_SESSION['id'])) {
+                header('Location: index.php?page=login');
+                exit;
+            }
 
-        if (($_SESSION['id_rol'] ?? 0) != 2) {
-            header('Location: index.php?page=catalogo');
-            exit;
-        }
+            $rol = (int)($_SESSION['id_rol'] ?? 0);
 
-        $solicitudes = $this->model->obtenerSolicitudesRefugio((int)$_SESSION['id']);
-        require_once __DIR__ . '/../views/panel_refugio.php';
-    }
+            // Si es Admin (rol 1) o Rescatista (rol 2) permitimos ver el panel
+            if ($rol == 1) {
+                $solicitudes = $this->model->obtenerTodasLasSolicitudes(); // Método global para admin
+            } elseif ($rol == 2) {
+                $solicitudes = $this->model->obtenerSolicitudesRefugio((int)$_SESSION['id']); // Filtrado para rescatista
+            } else {
+                header('Location: index.php?page=catalogo');
+                exit;
+            }
+
+            require_once __DIR__ . '/../views/panel_refugio.php';
+        }
 
     public function actualizar(): void
     {

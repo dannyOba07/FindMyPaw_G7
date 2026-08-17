@@ -22,6 +22,7 @@ class userController
 
     public function login(): void
     {
+        header('Content-Type: application/json');
         $correo   = trim($_POST['correo'] ?? '');
         $password = $_POST['password'] ?? '';
 
@@ -35,10 +36,12 @@ class userController
         } else {
             echo json_encode(['response' => '01', 'message' => 'Error de autenticación']);
         }
+        exit;
     }
 
     public function register(): void
     {
+        header('Content-Type: application/json');
         $correo           = trim($_POST['correo'] ?? '');
         $password         = $_POST['password'] ?? '';
         $confirm          = $_POST['confirm_password'] ?? '';
@@ -51,21 +54,22 @@ class userController
 
         if (empty($correo) || empty($password) || empty($nombre)) {
             echo json_encode(['response' => '01', 'message' => 'Correo, contraseña y nombre son obligatorios']);
-            return;
+            exit;
         }
 
         if ($password !== $confirm) {
             echo json_encode(['response' => '02', 'message' => 'Las contraseñas no coinciden']);
-            return;
+            exit;
         }
 
         if ($this->model->emailExists($correo)) {
             echo json_encode(['response' => '03', 'message' => 'El correo ya está registrado']);
-            return;
+            exit;
         }
 
         $this->model->register($correo, $password, $idRol, $nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $direccion);
         echo json_encode(['response' => '00', 'message' => 'Registro exitoso']);
+        exit;
     }
 
     public function logout(): void

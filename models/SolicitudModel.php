@@ -27,6 +27,20 @@ class SolicitudModel
         return $stmt->fetchAll();
     }
 
+    // NUEVO MÉTODO: Obtiene todas las solicitudes para el Administrador
+    public function obtenerTodasLasSolicitudes(): array
+    {
+        $sql = "SELECT S.ID_SOLICITUD, S.ID_ESTADO, S.FECHA_SOLICITUD, S.COMENTARIO, U.ID_USUARIO, U.NOMBRE_USUARIO, U.APELLIDO_PATERNO, P.NOMBRE_PERRO, P.RAZA, E.NOMBRE_ESTADO
+                FROM SOLICITUDES_ADOPCION S
+                INNER JOIN USUARIOS U ON S.ID_USUARIO = U.ID_USUARIO
+                INNER JOIN PERROS P ON S.ID_PERRO = P.ID_PERRO
+                INNER JOIN ESTADOS E ON S.ID_ESTADO = E.ID_ESTADO
+                ORDER BY S.ID_SOLICITUD DESC";
+
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll();
+    }
+
     public function obtenerSolicitudRefugio(int $idSolicitud, int $idUsuario)
     {
         $sql = "SELECT S.ID_SOLICITUD, S.ID_USUARIO, P.NOMBRE_PERRO
@@ -39,6 +53,8 @@ class SolicitudModel
         $stmt->execute([':id_solicitud' => $idSolicitud, ':id_usuario' => $idUsuario]);
         return $stmt->fetch();
     }
+
+
 
     public function actualizarEstado(int $idSolicitud, int $idEstado): bool
     {
