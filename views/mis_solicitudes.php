@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Solicitudes - FindMyPaw</title>
-    <link rel="stylesheet" href="../css/catalogo.css">
+    <link rel="stylesheet" href="/proyecto/FindMyPaw_G7/css/catalogo.css">
     <style>
         .tabla-solicitudes {
             width: 100%;
@@ -21,6 +21,7 @@
     </style>
 </head>
 <body>
+    <?php include __DIR__ . '/navbar.php'; ?>
     <div class="contenedor-catalogo">
         <header>
             <h1>Mis Solicitudes de Adopción</h1>

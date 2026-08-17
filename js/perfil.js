@@ -1,21 +1,20 @@
 $(function () {
-    const urlBase = "../index.php";
+    const urlBase = "/proyecto/FindMyPaw_G7/index.php";
 
     function cargarPerfil() {
         $.get(urlBase, { option: "profile" }, function (res) {
-            res = JSON.parse(res);
             if (res.response !== "00") {
-                window.location.href = "login.php";
+                window.location.href = "/proyecto/FindMyPaw_G7/index.php?page=login";
                 return;
             }
             $("#perfilCorreo").text(res.user.CORREO);
-            $("#perfilRol").text(res.user.NOMBRE_ROL);
+            $("#perfilRol").text(res.user.ID_ROL);
             $("#nombre").val(res.user.NOMBRE_USUARIO);
             $("#apellidoPaterno").val(res.user.APELLIDO_PATERNO);
             $("#apellidoMaterno").val(res.user.APELLIDO_MATERNO);
             $("#telefono").val(res.user.TELEFONO);
             $("#direccion").val(res.user.DIRECCION);
-        });
+        }, "json");
     }
 
     $("#formPerfil").on("submit", function (e) {
@@ -38,9 +37,11 @@ $(function () {
         }, "json");
     });
 
-    $('#btnLogout').on('click', function () {
+    $('#btnLogout').on('click', function (e) {
+        e.preventDefault(); 
+        
         $.post(urlBase, { option: "logout" }, function () {
-            window.location.href = 'login.php';
+            window.location.href = '/proyecto/FindMyPaw_G7/index.php?page=login';
         });
     });
 

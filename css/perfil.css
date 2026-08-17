@@ -1,0 +1,165 @@
+/* 
+    Estilos Base heredados del Catálogo y Login
+  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url("../img/fondo.png"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.contenedor-perfil {
+    width: 600px;
+    max-width: 95%;
+    background: rgba(255, 255, 255, .95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,.35);
+    margin: 40px auto; 
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #1d3557;
+}
+
+header p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555;
+    font-size: 16px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin-bottom: 25px;
+}
+
+/* Alertas */
+.alert {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.d-none {
+    display: none;
+}
+
+/* Grupo de Datos de Solo Lectura */
+.info-grupo {
+    margin-bottom: 15px;
+}
+
+.info-grupo label {
+    font-weight: bold;
+    color: #1d3557;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.info-grupo p {
+    color: #555;
+    font-size: 15px;
+}
+
+/* Formulario de Perfil */
+.form-grupo {
+    margin-bottom: 20px;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1d3557;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-grupo input,
+.form-grupo textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-grupo input:focus,
+.form-grupo textarea:focus {
+    border-color: #71a7db;
+}
+
+/* Botones de Acción */
+.acciones-perfil {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-actualizar {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background: #71a7db;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-actualizar:hover {
+    background: #4d8ecb;
+    color: white;
+}
+
+.btn-logout {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    background: #f8d7da;
+    color: #721c24;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-logout:hover {
+    background: #721c24;
+    color: white;
+}

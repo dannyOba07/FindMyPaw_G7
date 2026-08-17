@@ -49,12 +49,12 @@
             <?php else: ?>
                 <?php foreach ($perros as $perro): ?>
                     <div class="card-perro">
-                        <img src="./<?php echo !empty($perro['RUTA_IMAGEN']) ? $perro['RUTA_IMAGEN'] : 'img/fondo.png'; ?>" alt="Foto de <?php echo $perro['NOMBRE_PERRO']; ?>">
+                        <img src="/proyecto/FindMyPaw_G7/img/reportes/<?php echo basename($perro['RUTA_IMAGEN']); ?>" alt="Foto de <?php echo $perro['NOMBRE_PERRO']; ?>">
                         <div class="info-perro">
                             <h3><?php echo htmlspecialchars($perro['NOMBRE_PERRO'] ?: 'Sin nombre'); ?></h3>
                             <p><strong>Raza:</strong> <?php echo htmlspecialchars($perro['RAZA']); ?></p>
                             <p><strong>Edad:</strong> <?php echo $perro['EDAD']; ?> años</p>
-                            <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($perro['UBICACION']); ?></p>
+                            <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($perro['UBICACION']?? 'No especificada'); ?></p>
                         </div>
                         <button type="button" class="btnAdoptar" onclick="solicitarAdopcion(<?php echo $perro['ID_PERRO']; ?>, '<?php echo htmlspecialchars($perro['NOMBRE_PERRO']); ?>')">Solicitar Adopción</button>
                     </div>

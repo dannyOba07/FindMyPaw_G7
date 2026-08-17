@@ -6,10 +6,15 @@ require_once __DIR__ . '/controllers/userControllers.php';
 $page = $_GET['page'] ?? 'login';
 
 // Procesamiento de peticiones GET / API
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_GET['option'] ?? '') === 'getProfile') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['option'])) {
     $auth = new userController();
-    $auth->profile();
-    exit;
+    $option = $_GET['option'];
+
+    switch ($option) {
+        case 'profile':
+            $auth->profile();
+            exit;
+    }
 }
 
 // Procesamiento de peticiones POST (AJAX)
@@ -18,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $option = $_POST['option'] ?? '';
 
     switch ($option) {
+        
         case 'login':
             $auth->login();
             exit;
@@ -29,6 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         case 'logout':
             $auth->logout();
+            exit;
+        case 'guardarSolicitud':
+        require_once __DIR__ . '/controllers/AdopcionController.php';
+        $controller = new AdopcionController();
+        $controller->guardarSolicitud();
+        exit;
+        case 'actualizarEstadoSolicitud':
+            require_once __DIR__ . '/controllers/SolicitudController.php';
+            $controller = new SolicitudController();
+            $controller->actualizar();
             exit;
     }
 }
@@ -75,11 +91,7 @@ switch ($page) {
         break;
 
     case 'profile':
-        if (!isset($_SESSION['id'])) {
-            header('Location: index.php?page=login');
-            exit;
-        }
-        require_once __DIR__ . '/views/profile.php';
+        include __DIR__ . '/views/profile.php';
         break;
 
     case 'login':

@@ -103,10 +103,10 @@ class ReporteController
     {
         $id = (int)$id;
 
-        // 1. Obtener los datos del reporte por su ID desde el modelo
+        
         $reporte = $this->model->obtenerPorId($id);
 
-        // 2. Cargar la vista de detalle
+        
         require_once __DIR__ . '/../views/reportes/detalle.php';
     }
 }

@@ -251,3 +251,29 @@ INSERT INTO ADOPCIONES (
     OBSERVACION
 ) VALUES
 (1, 1, 2, 3, '2026-07-03', 'Adopción pendiente de aprobación final');
+
+
+INSERT INTO PERROS (NOMBRE_PERRO, RAZA, EDAD, TAMANO, COLOR, SEXO, DESCRIPCION, ID_USUARIO, ID_ESTADO) VALUES 
+('Blanquito', 'Mestizo', '2', 'Mediano', 'Blanco y Gris', 'Macho', 'Tranquilo y amigable, visto cerca del campo.', 1, 1),
+('Bruno', 'Mestizo', '1', 'Pequeño', 'Café / Canela', 'Macho', 'Muy activo y juguetón.', 1, 1),
+('Rocky', 'Mestizo', '3', 'Grande', 'Negro', 'Macho', 'Lleva un collar verde, un poco tímido.', 1, 1),
+('Toby', 'Poodle / Rizado', '2', 'Pequeño', 'Dorado / Canela', 'Macho', 'Pelo rizado, muy cariñoso.', 1, 1);
+
+
+INSERT INTO IMAGENES_PERRO (ID_PERRO, ID_ESTADO, RUTA_IMAGEN, DESCRIPCION) VALUES 
+(3, 1, 'img/reportes/Blanquito.jpg', 'Fotografía de Blanquito'),
+(4, 1, 'img/reportes/bruno.jpg', 'Fotografía de Bruno'),
+(5, 1, 'img/reportes/rocky.webp', 'Fotografía de Rocky'),
+(6, 1, 'img/reportes/toby.jpg', 'Fotografía de Toby');
+
+
+INSERT INTO REPORTES (ID_PERRO, ID_TIPO_REPORTE, UBICACION, FECHA_REPORTE, ID_USUARIO, ID_ESTADO) VALUES 
+(3, 1, 'La Fortuna Centro', NOW(), 1, 1),
+(4, 2, 'Barrio Los Ángeles', NOW(), 1, 1),
+(5, 1, 'El Castillo', NOW(), 1, 1),
+(6, 3, 'Nuevo Arenal', NOW(), 1, 1);
+
+UPDATE REPORTES SET DESCRIPCION = 'Tranquilo y amigable, visto cerca del campo.' WHERE ID_PERRO = 3;
+UPDATE REPORTES SET DESCRIPCION = 'Muy activo y juguetón en la zona.' WHERE ID_PERRO = 4;
+UPDATE REPORTES SET DESCRIPCION = 'Lleva un collar verde, un poco tímido.' WHERE ID_PERRO = 5;
+UPDATE REPORTES SET DESCRIPCION = 'Pelo rizado, muy cariñoso, visto cerca.' WHERE ID_PERRO = 6;

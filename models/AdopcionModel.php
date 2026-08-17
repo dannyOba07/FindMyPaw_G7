@@ -27,9 +27,9 @@ class AdopcionModel
                     R.FECHA_REPORTE,
                     I.RUTA_IMAGEN
                 FROM PERROS P
-                INNER JOIN REPORTES R ON P.ID_PERRO = R.ID_PERRO
+                left JOIN REPORTES R ON P.ID_PERRO = R.ID_PERRO
                 LEFT JOIN IMAGENES_PERRO I ON P.ID_PERRO = I.ID_PERRO
-                WHERE P.ID_ESTADO = 9"; // Estado 9 = En adopción
+                WHERE 1=1"; 
 
         $params = [];
 

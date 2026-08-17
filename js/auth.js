@@ -41,7 +41,7 @@ $(function () {
             telefono: $('#regTelefono').val(),
             direccion: $('#regDireccion').val(),
             password: $('#regPassword').val(),
-            confirm_password: $('#regConfirmPassword').val(), // Se agrega confirmación de contraseña requerida por el backend
+            confirm_password: $('#regConfirmPassword').val(), 
             id_rol: $('#regRol').val(),
             option: 'register'
         }, function (res) {
@@ -54,7 +54,7 @@ $(function () {
         }, 'json');
     });
 
-    // ── Logout ───────────────────────────────────────────
+    // ── Logout 
     $('#btnLogout').on('click', function () {
         $.post(urlBase, { option: 'logout' }, function () {
             window.location.href = 'index.php?page=login';
